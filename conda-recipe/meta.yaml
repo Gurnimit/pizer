@@ -1,0 +1,57 @@
+{% set name = "pizer" %}
+{% set version = "1.0.1" %}
+{% set sha256 = "23ca1c8a964b9f7f1a4b61e94acd84b342b6b7a3a83bea16e6867e36261f6ddb" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://files.pythonhosted.org/packages/source/p/pizer/pizer-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  entry_points:
+    - pizer = pizer.cli:app
+    - pizer-gui = pizer.gui:main
+
+requirements:
+  host:
+    - pip
+    - python >=3.8,<4.0
+    - setuptools
+    - wheel
+    - poetry-core
+  run:
+    - python >=3.8,<4.0
+    - pip
+    - pandas >=2.0,<3.0
+    - pillow >=10.0.0,<11.0.0
+
+test:
+  requires:
+    - pip
+  imports:
+    - pizer
+  commands:
+    - pip install openai typer python-dotenv google-generativeai
+    - python -c "from pizer import ZipStreamReader; print('Imports successful')"
+    - pizer --help 2>&1 | head -5
+
+about:
+  home: https://github.com/pizer-team/pizer
+  license: MIT
+
+  license_family: MIT
+  summary: Cyber defence tool for zip file password recovery and streaming
+  description: |
+    πzer is a tool for zip file password recovery and archive inspection.
+  doc_url: https://github.com/pizer-team/pizer
+  dev_url: https://github.com/pizer-team/pizer
+
+extra:
+  recipe-maintainers:
+    - pizer-team

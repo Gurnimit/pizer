@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "pizer"
+version = "1.0.1"
+description = "πzer: Cyber defence tool for zip file password recovery and streaming"
+authors = ["πzer Team"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "pizer" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+openai = "^1.10.0"
+pandas = "^2.0"
+python-dotenv = "^1.0.0"
+typer = "^0.9.0"
+pillow = "^10.0.0"
+google-generativeai = "^0.4.1"
+requests = "^2.32.4"
+rich = "^13.0.0"
+rarfile = "^4.0"
+
+[tool.poetry.scripts]
+pizer = "pizer.cli:app"
+pizer-gui = "pizer.gui:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
